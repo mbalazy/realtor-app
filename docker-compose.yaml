@@ -20,7 +20,6 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
-
       - DB_TYPE=postgres
       - POSTGRES_HOST=postgres_db
       - POSTGRES_PORT=5432
