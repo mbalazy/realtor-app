@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { Home } from '../home/entity/home.entity';
 import { EnvModule } from '../env/env.module';
+import { User } from '../user/entity/user.entity';
+import { Image } from '../image/entity/image.entity';
 
 const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -9,8 +12,9 @@ const typeOrmConfig: TypeOrmModuleOptions = {
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  entities: [__dirname + '/../**/*.entity.ts'],
-  synchronize: false,
+  entities: [Home, User, Image],
+  synchronize: true,
+  autoLoadEntities: true,
 };
 
 @Module({
