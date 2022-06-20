@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Message } from 'src/message/entity/message.entity';
+import { Message } from '../../message/entity/message.entity';
 
 enum UserType {
   BUYER = 'buyer',

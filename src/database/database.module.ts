@@ -4,6 +4,7 @@ import { Home } from '../home/entity/home.entity';
 import { EnvModule } from '../env/env.module';
 import { User } from '../user/entity/user.entity';
 import { Image } from '../image/entity/image.entity';
+import { Message } from '../message/entity/message.entity';
 
 const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -12,7 +13,7 @@ const typeOrmConfig: TypeOrmModuleOptions = {
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  entities: [Home, User, Image],
+  entities: [Home, User, Image, Message],
   synchronize: true,
   autoLoadEntities: true,
 };
