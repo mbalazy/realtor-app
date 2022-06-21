@@ -1,4 +1,4 @@
-import { Home } from '../../home/home.entity';
+import { Home } from '../home/home.entity';
 import {
   BaseEntity,
   Column,
@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Message } from '../../message/message.entity';
+import { Message } from '../message/message.entity';
 
 enum UserType {
   BUYER = 'buyer',

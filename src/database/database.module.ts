@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Home } from '../home/home.entity';
 import { EnvModule } from '../env/env.module';
-import { User } from '../user/entity/user.entity';
+import { User } from '../user/user.entity';
 import { Image } from '../image/image.entity';
 import { Message } from '../message/message.entity';
 

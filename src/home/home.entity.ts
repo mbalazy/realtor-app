@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { Image } from '../image/image.entity';
 import { Message } from '../message/message.entity';
-import { User } from '../user/entity/user.entity';
+import { User } from '../user/user.entity';
 
 export enum PropertyType {
   RESIDENTAL = 'residental',
