@@ -1,4 +1,4 @@
-import { Home } from '../../home/entity/home.entity';
+import { Home } from '../../home/home.entity';
 import {
   BaseEntity,
   Column,
@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Message } from '../../message/entity/message.entity';
+import { Message } from '../../message/message.entity';
 
 enum UserType {
   BUYER = 'buyer',
@@ -46,12 +46,12 @@ export class User extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp' })
   updated_at: number;
 
-  @OneToMany(() => Home, (home) => home.images)
+  @OneToMany(() => Home, (home) => home.images, { nullable: true })
   homes: Home[];
 
-  @OneToMany(() => Message, (message) => message.buyer)
+  @OneToMany(() => Message, (message) => message.buyer, { nullable: true })
   buyer_meggages: Message[];
 
-  @OneToMany(() => Message, (message) => message.realtor)
+  @OneToMany(() => Message, (message) => message.realtor, { nullable: true })
   realtor_meggages: Message[];
 }

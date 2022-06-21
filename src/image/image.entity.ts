@@ -1,4 +1,4 @@
-import { Home } from '../../home/entity/home.entity';
+import { Home } from '../home/home.entity';
 import {
   BaseEntity,
   Column,

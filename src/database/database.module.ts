@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { Home } from '../home/entity/home.entity';
+import { Home } from '../home/home.entity';
 import { EnvModule } from '../env/env.module';
 import { User } from '../user/entity/user.entity';
-import { Image } from '../image/entity/image.entity';
-import { Message } from '../message/entity/message.entity';
+import { Image } from '../image/image.entity';
+import { Message } from '../message/message.entity';
 
 const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -16,6 +16,7 @@ const typeOrmConfig: TypeOrmModuleOptions = {
   entities: [Home, User, Image, Message],
   synchronize: true,
   autoLoadEntities: true,
+  logging: true,
 };
 
 @Module({

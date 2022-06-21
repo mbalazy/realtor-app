@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Home } from '../../home/entity/home.entity';
-import { User } from '../../user/entity/user.entity';
+import { Home } from '../home/home.entity';
+import { User } from '../user/entity/user.entity';
 
 @Entity()
 export class Message extends BaseEntity {

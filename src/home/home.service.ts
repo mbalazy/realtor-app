@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Home } from '../entity/home.entity';
+import { Home } from './home.entity';
 
 @Injectable()
 export class HomeService {
@@ -10,8 +10,11 @@ export class HomeService {
     private homeRepository: Repository<Home>,
   ) {}
 
-  add(home) {
-    console.log(home);
-    return this.homeRepository.save(home);
+  async add(home) {
+    const newHome = this.homeRepository.create(home);
+
+    const saved = await this.homeRepository.save(newHome);
+    console.log(saved);
+    return saved;
   }
 }

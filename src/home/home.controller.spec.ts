@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { HomeModuleMeta } from '../home.module';
+import { HomeModuleMeta } from './home.module';
 import { HomeController } from './home.controller';
 
 describe('HomeController', () => {

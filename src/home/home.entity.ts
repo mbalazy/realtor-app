@@ -8,9 +8,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Image } from '../../image/entity/image.entity';
-import { Message } from '../../message/entity/message.entity';
-import { User } from '../../user/entity/user.entity';
+import { Image } from '../image/image.entity';
+import { Message } from '../message/message.entity';
+import { User } from '../user/entity/user.entity';
 
 export enum PropertyType {
   RESIDENTAL = 'residental',
@@ -32,9 +32,9 @@ export class Home extends BaseEntity {
   number_of_bathrooms: number;
 
   @Column()
-  city: number;
+  city: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ nullable: true })
   listed_date: number;
 
   @Column({ type: 'float' })
@@ -56,12 +56,12 @@ export class Home extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp' })
   updated_at: number;
 
-  @OneToMany(() => Image, (image) => image.home)
+  @OneToMany(() => Image, (image) => image.home, { nullable: true })
   images: Image[];
 
-  @ManyToOne(() => User, (user) => user.homes)
+  @ManyToOne(() => User, (user) => user.homes, { nullable: true })
   realtor: User;
 
-  @OneToMany(() => Message, (message) => message.home)
+  @OneToMany(() => Message, (message) => message.home, { nullable: true })
   message: Message[];
 }
