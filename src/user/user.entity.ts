@@ -27,7 +27,7 @@ export class User extends BaseEntity {
   @Column()
   phone: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
@@ -36,7 +36,7 @@ export class User extends BaseEntity {
   @Column({
     type: 'enum',
     enum: UserType,
-    // default: UserType.BUYER,
+    default: UserType.BUYER,
   })
   userType: UserType;
 

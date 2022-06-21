@@ -14,7 +14,8 @@
     "start:debug": "sh ./scripts/start_db.sh && nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
+    "test:start": "jest",
+    "test": "sh ./scripts/run_test.sh",
     "deploy": "sh ./scripts/deploy.sh",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -26,7 +27,12 @@
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/typeorm": "^8.1.4",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.8",
+    "bcryptjs": "^2.4.3",
+    "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
@@ -63,8 +69,11 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": "./",
     "testRegex": ".*\\.spec\\.ts$",
+    "modulePaths": [
+      "<rootDir>"
+    ],
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },

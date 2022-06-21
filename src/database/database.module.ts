@@ -16,7 +16,8 @@ const typeOrmConfig: TypeOrmModuleOptions = {
   entities: [Home, User, Image, Message],
   synchronize: true,
   autoLoadEntities: true,
-  logging: true,
+  // logging: true,
+  dropSchema: process.env.DROP_DATABASE === 'true',
 };
 
 @Module({
