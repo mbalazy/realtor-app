@@ -39,7 +39,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=postgres_test
 
   tests:
     image: node:14-buster
@@ -47,13 +47,15 @@ services:
       - JWT=aa
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=postgres_test
       - DB_TYPE=postgres
       - POSTGRES_HOST=postgres_db_test
       - DROP_DATABASE=true
     depends_on:
       - postgres_db_test
     command: yarn test:start
+    user:
+      'node'
     volumes:
       - .:/app
     working_dir: /app

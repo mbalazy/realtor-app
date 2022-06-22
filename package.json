@@ -74,6 +74,7 @@
     "modulePaths": [
       "<rootDir>"
     ],
+    "testTimeout": 20000,
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },

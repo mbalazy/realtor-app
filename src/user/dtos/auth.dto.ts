@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
-export class SignupUserDto {
+export class SignUpDto {
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -9,6 +9,15 @@ export class SignupUserDto {
   @IsString()
   phone: string;
 
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  @MinLength(5, { message: 'password must be longer than 5 characters' })
+  password: string;
+}
+
+export class SignInDto {
   @IsEmail()
   email: string;
 
