@@ -1,5 +1,4 @@
 import {
-  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -14,11 +13,11 @@ import { User } from '../user/user.entity';
 
 export enum PropertyType {
   RESIDENTAL = 'residental',
-  CONDO = 'condo ',
+  CONDO = 'condo',
 }
 
 @Entity()
-export class Home extends BaseEntity {
+export class Home {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -35,7 +34,7 @@ export class Home extends BaseEntity {
   city: string;
 
   @Column({ nullable: true })
-  listed_date: number;
+  listed_date: Date;
 
   @Column({ type: 'float' })
   price: number;
@@ -51,17 +50,17 @@ export class Home extends BaseEntity {
   propertyType: PropertyType;
 
   @CreateDateColumn({ type: 'timestamp' })
-  created_at: number;
+  created_at: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updated_at: number;
+  updated_at: Date;
 
   @OneToMany(() => Image, (image) => image.home, { nullable: true })
-  images: Image[];
+  images?: Image[];
 
   @ManyToOne(() => User, (user) => user.homes, { nullable: true })
-  realtor: User;
+  realtor?: User;
 
   @OneToMany(() => Message, (message) => message.home, { nullable: true })
-  message: Message[];
+  message?: Message[];
 }

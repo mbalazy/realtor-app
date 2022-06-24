@@ -18,6 +18,7 @@ const typeOrmConfig: TypeOrmModuleOptions = {
   autoLoadEntities: true,
   // logging: true,
   dropSchema: process.env.DROP_DATABASE === 'true',
+  // dropSchema: true
 };
 
 @Module({

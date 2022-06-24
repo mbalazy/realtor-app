@@ -1,8 +1,9 @@
-import { ConflictException, HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { oneMonthInSec } from 'src/consts';
+import { Exeptions } from 'src/utils/Exeptions';
 import { Repository } from 'typeorm';
 import { SignInDto, SignUpDto } from '../dtos/auth.dto';
 import { User } from '../user.entity';
@@ -11,11 +12,13 @@ export type SignUpParams = SignUpDto;
 export type SignInParams = SignInDto;
 
 @Injectable()
-export class AuthService {
+export class AuthService extends Exeptions {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
-  ) {}
+  ) {
+    super();
+  }
 
   async signUp({ email, password, name, phone }: SignUpParams) {
     const existingUser = await this.userRepository.findOne({
@@ -23,7 +26,7 @@ export class AuthService {
     });
 
     if (existingUser) {
-      throw new ConflictException(
+      this.throwConflictExeption(
         `User with email address - ${email} already exist`,
       );
     }
@@ -52,9 +55,8 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new HttpException(
+      this.throwConflictExeption(
         `User with email address - ${email} don't exist`,
-        400,
       );
     }
 
