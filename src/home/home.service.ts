@@ -5,7 +5,7 @@ import { Between, LessThan, MoreThan, Repository } from 'typeorm';
 import { CreateHomeDto, HomeResponseDto } from './dtos/home.dto';
 import { Home, PropertyType } from './home.entity';
 
-export type createHomeParams = CreateHomeDto;
+export type CreateHomeParams = CreateHomeDto;
 
 @Injectable()
 export class HomeService extends Exeptions {
@@ -29,7 +29,6 @@ export class HomeService extends Exeptions {
   }) {
     const homes = await this.homeRepository.find({
       relations: { images: true },
-      select: { images: { url: true } },
       where: {
         city,
         propertyType,
@@ -51,7 +50,10 @@ export class HomeService extends Exeptions {
   }
 
   async getHome(id: number) {
-    const home = await this.homeRepository.findOne({ where: { id } });
+    const home = await this.homeRepository.findOne({
+      where: { id },
+      relations: { images: true },
+    });
 
     if (!home) {
       this.throwHttpExeption('Can not find home');
@@ -60,10 +62,11 @@ export class HomeService extends Exeptions {
     return new HomeResponseDto(home);
   }
 
-  async createHome(home: createHomeParams) {
+  async createHome(home: CreateHomeParams) {
     const newHome = this.homeRepository.create(home);
     await this.homeRepository.save(newHome);
-    return new HomeResponseDto(newHome);
+
+    return new HomeResponseDto({ ...newHome, images: newHome.images || [] });
   }
 
   filterByPrice({ minPrice, maxPrice }) {
@@ -71,7 +74,7 @@ export class HomeService extends Exeptions {
       return MoreThan(Number(minPrice));
     }
     if (maxPrice && !minPrice) {
-      return LessThan(Number(minPrice));
+      return LessThan(Number(maxPrice));
     }
     if (maxPrice && minPrice) {
       return Between(Number(minPrice), Number(maxPrice));

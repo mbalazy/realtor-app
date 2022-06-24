@@ -1,6 +1,4 @@
-import { Home } from '../home/home.entity';
 import {
-  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -8,9 +6,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Home } from '../home/home.entity';
 
 @Entity()
-export class Image extends BaseEntity {
+export class Image {
   @PrimaryGeneratedColumn()
   id: number;
 

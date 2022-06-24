@@ -40,11 +40,9 @@ export class HomeResponseDto implements Home {
   city: string;
   price: number;
   propertyType: PropertyType;
+  images: Image[];
 
   image?: string;
-
-  @Exclude()
-  images?: Image[];
 
   @Exclude()
   realtor?: User;

@@ -55,8 +55,8 @@ export class Home {
   @UpdateDateColumn({ type: 'timestamp' })
   updated_at: Date;
 
-  @OneToMany(() => Image, (image) => image.home, { nullable: true })
-  images?: Image[];
+  @OneToMany(() => Image, (image) => image.home)
+  images: Image[];
 
   @ManyToOne(() => User, (user) => user.homes, { nullable: true })
   realtor?: User;
