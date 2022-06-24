@@ -1,6 +1,4 @@
-import { Home } from '../home/home.entity';
 import {
-  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -8,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Home } from '../home/home.entity';
 import { Message } from '../message/message.entity';
 
 enum UserType {
@@ -17,7 +16,7 @@ enum UserType {
 }
 
 @Entity()
-export class User extends BaseEntity {
+export class User {
   @PrimaryGeneratedColumn()
   id: number;
 

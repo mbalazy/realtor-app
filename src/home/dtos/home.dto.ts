@@ -43,7 +43,7 @@ export class CreateHomeDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => ImageDto)
-  images?: ImageDto[];
+  images: ImageDto[];
 }
 
 class ImageDto extends Image {
@@ -77,7 +77,7 @@ export class HomeResponseDto extends Home {
   image?: string;
 
   @Exclude()
-  realtor?: User;
+  realtor: User;
   @Exclude()
   updated_at: Date;
   @Exclude()

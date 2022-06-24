@@ -58,8 +58,8 @@ export class Home {
   @OneToMany(() => Image, (image) => image.home)
   images: Image[];
 
-  @ManyToOne(() => User, (user) => user.homes, { nullable: true })
-  realtor?: User;
+  @ManyToOne(() => User, (user) => user.homes)
+  realtor: User;
 
   @OneToMany(() => Message, (message) => message.home, { nullable: true })
   message?: Message[];

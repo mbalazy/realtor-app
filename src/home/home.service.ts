@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ImageService } from 'src/image/image.service';
+import { User } from 'src/user/user.entity';
 // import { Image } from 'src/image/image.entity';
 import { Exeptions } from 'src/utils/Exeptions';
 import { Between, LessThan, MoreThan, Repository } from 'typeorm';
@@ -14,9 +15,6 @@ export class HomeService extends Exeptions {
   constructor(
     @InjectRepository(Home)
     private homeRepository: Repository<Home>,
-
-    // @InjectRepository(Image)
-    // private imageRepository: Repository<Image>,
 
     @Inject(ImageService)
     private imageService: ImageService,
@@ -71,8 +69,11 @@ export class HomeService extends Exeptions {
     return new HomeResponseDto(home);
   }
 
-  async createHome(home: CreateHomeParams) {
-    const newHome = this.homeRepository.create(home);
+  async createHome(home: CreateHomeParams, realtor: User) {
+    const newHome = this.homeRepository.create({
+      ...home,
+      realtor,
+    });
     await this.homeRepository.save(newHome);
 
     const imageToCreate = home?.images;

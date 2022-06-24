@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { User } from 'src/user/user.entity';
 import { HomeResponseDto } from './dtos/home.dto';
 import { HomeModuleMeta } from './home.module';
 import { CreateHomeParams, HomeService } from './home.service';
@@ -25,6 +26,7 @@ describe('HomeService', () => {
     { ...home, city: 'C', price: 10 },
     { ...home, city: 'B', price: 15 },
   ];
+  const mockRealtor = new User();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule(
@@ -41,14 +43,14 @@ describe('HomeService', () => {
   describe('Create home', () => {
     it('should create home', async () => {
       const mockNewHouse = new HomeResponseDto(home);
-      const response = await service.createHome(home);
+      const response = await service.createHome(home, mockRealtor);
       expect(response).toMatchObject(mockNewHouse);
     });
   });
 
   describe('Geting homes', () => {
     it('should get one home', async () => {
-      const response = await service.createHome(home);
+      const response = await service.createHome(home, mockRealtor);
       const getHome = await service.getHome(1);
 
       expect(response).toMatchObject(getHome);
@@ -56,7 +58,7 @@ describe('HomeService', () => {
 
     it('should filter by city', async () => {
       for (const home of moreHomes) {
-        await service.createHome(home);
+        await service.createHome(home, mockRealtor);
       }
 
       const homesCityEqC = await service.getHomes({ city: 'C' });
@@ -70,7 +72,7 @@ describe('HomeService', () => {
 
     it('should filter by maxPrice', async () => {
       for (const home of moreHomes) {
-        await service.createHome(home);
+        await service.createHome(home, mockRealtor);
       }
 
       const homesPriceL9 = await service.getHomes({ maxPrice: '9' });
@@ -84,7 +86,7 @@ describe('HomeService', () => {
 
     it('should filter by minPrice', async () => {
       for (const home of moreHomes) {
-        await service.createHome(home);
+        await service.createHome(home, mockRealtor);
       }
 
       const homesPriceM3 = await service.getHomes({ minPrice: '3' });
@@ -98,7 +100,7 @@ describe('HomeService', () => {
 
     it('should filter by min and max price', async () => {
       for (const home of moreHomes) {
-        await service.createHome(home);
+        await service.createHome(home, mockRealtor);
       }
 
       const homesPriceM3 = await service.getHomes({
