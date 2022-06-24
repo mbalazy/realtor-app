@@ -1,5 +1,12 @@
-import { Exclude, Expose } from 'class-transformer';
-import { IsDate, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { Exclude, Expose, Type } from 'class-transformer';
+import {
+  IsArray,
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { Image } from 'src/image/image.entity';
 import { User } from 'src/user/user.entity';
 import { Home, PropertyType } from '../home.entity';
@@ -32,14 +39,39 @@ export class CreateHomeDto {
   @IsNumber()
   @IsNotEmpty()
   land_size: number;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => ImageDto)
+  images?: ImageDto[];
 }
 
-export class HomeResponseDto implements Home {
+class ImageDto extends Image {
+  id: number;
+  home: Home;
+
+  @IsString()
+  @IsNotEmpty()
+  url: string;
+
+  @Exclude()
+  updated_at: number;
+  @Exclude()
+  created_at: number;
+
+  constructor(partial: Partial<ImageDto>) {
+    super();
+    Object.assign(this, partial);
+  }
+}
+
+export class HomeResponseDto extends Home {
   id: number;
   address: string;
   city: string;
   price: number;
   propertyType: PropertyType;
+
   images: Image[];
 
   image?: string;
@@ -81,6 +113,7 @@ export class HomeResponseDto implements Home {
   }
 
   constructor(partial: Partial<HomeResponseDto>) {
+    super();
     Object.assign(this, partial);
   }
 }

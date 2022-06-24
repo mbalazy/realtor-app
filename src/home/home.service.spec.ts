@@ -14,6 +14,7 @@ describe('HomeService', () => {
     listed_date: new Date(1400000),
     price: 1,
     land_size: 1,
+    images: [],
   };
 
   const moreHomes: CreateHomeParams[] = [

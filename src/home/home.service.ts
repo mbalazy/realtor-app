@@ -1,5 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ImageService } from 'src/image/image.service';
+// import { Image } from 'src/image/image.entity';
 import { Exeptions } from 'src/utils/Exeptions';
 import { Between, LessThan, MoreThan, Repository } from 'typeorm';
 import { CreateHomeDto, HomeResponseDto } from './dtos/home.dto';
@@ -12,6 +14,12 @@ export class HomeService extends Exeptions {
   constructor(
     @InjectRepository(Home)
     private homeRepository: Repository<Home>,
+
+    // @InjectRepository(Image)
+    // private imageRepository: Repository<Image>,
+
+    @Inject(ImageService)
+    private imageService: ImageService,
   ) {
     super();
   }
@@ -22,6 +30,7 @@ export class HomeService extends Exeptions {
     maxPrice,
     propertyType,
   }: {
+    // todo move to .types
     city?: string;
     minPrice?: string;
     maxPrice?: string;
@@ -66,7 +75,14 @@ export class HomeService extends Exeptions {
     const newHome = this.homeRepository.create(home);
     await this.homeRepository.save(newHome);
 
-    return new HomeResponseDto({ ...newHome, images: newHome.images || [] });
+    const imageToCreate = home?.images;
+    if (imageToCreate.length > 0) {
+      for (const image of imageToCreate) {
+        await this.imageService.createImage(image.url, newHome);
+      }
+    }
+
+    return new HomeResponseDto(newHome);
   }
 
   filterByPrice({ minPrice, maxPrice }) {
