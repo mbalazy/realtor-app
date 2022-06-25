@@ -76,11 +76,9 @@ export class HomeService extends Exeptions {
     });
     await this.homeRepository.save(newHome);
 
-    const imageToCreate = home?.images;
-    if (imageToCreate.length > 0) {
-      for (const image of imageToCreate) {
-        await this.imageService.createImage(image.url, newHome);
-      }
+    const imagesToCreate = home?.images;
+    if (imagesToCreate.length > 0) {
+      await this.imageService.batchCreateImages(imagesToCreate, newHome);
     }
 
     return new HomeResponseDto(newHome);

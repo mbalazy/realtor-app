@@ -46,7 +46,7 @@ export class CreateHomeDto {
   images: ImageDto[];
 }
 
-class ImageDto extends Image {
+export class ImageDto extends Image {
   id: number;
   home: Home;
 
