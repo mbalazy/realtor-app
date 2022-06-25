@@ -74,7 +74,7 @@ export class HomeService extends Exeptions {
       ...home,
       realtor,
     });
-    await this.homeRepository.save(newHome);
+    await this.homeRepository.insert(newHome);
 
     const imagesToCreate = home?.images;
     if (imagesToCreate.length > 0) {

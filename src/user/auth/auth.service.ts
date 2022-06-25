@@ -39,7 +39,7 @@ export class AuthService extends Exeptions {
       password: hashedPassword,
     });
 
-    await this.userRepository.save(newUser);
+    await this.userRepository.insert(newUser);
 
     const token = this.generateToken({
       name,

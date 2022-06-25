@@ -14,7 +14,7 @@ export class ImageService {
 
   async createImage(url: string, home: Home) {
     const newImage = this.imageRepository.create({ url, home });
-    await this.imageRepository.save([newImage]);
+    await this.imageRepository.insert(newImage);
 
     return newImage;
   }
@@ -27,7 +27,7 @@ export class ImageService {
       createdImages.push(newImage);
     }
 
-    await this.imageRepository.save(createdImages);
+    await this.imageRepository.insert(createdImages);
 
     return createdImages;
   }
