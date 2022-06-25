@@ -2,13 +2,13 @@ import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ImageService } from 'src/image/image.service';
 import { User } from 'src/user/user.entity';
-// import { Image } from 'src/image/image.entity';
 import { Exeptions } from 'src/utils/Exeptions';
 import { Between, LessThan, MoreThan, Repository } from 'typeorm';
-import { CreateHomeDto, HomeResponseDto } from './dtos/home.dto';
+import { CreateHomeDto, HomeResponseDto, UpdateHomeDto } from './dtos/home.dto';
 import { Home, PropertyType } from './home.entity';
 
 export type CreateHomeParams = CreateHomeDto;
+export type UpdateHomeParams = UpdateHomeDto;
 
 @Injectable()
 export class HomeService extends Exeptions {
@@ -82,6 +82,14 @@ export class HomeService extends Exeptions {
     }
 
     return new HomeResponseDto(newHome);
+  }
+
+  async udpateHome(id: number, home: UpdateHomeParams) {
+    const updatedHome = await this.homeRepository.update({ id }, home);
+
+    return updatedHome.affected === 1
+      ? 'done'
+      : this.throwHttpExeption('Can not update any home');
   }
 
   filterByPrice({ minPrice, maxPrice }) {

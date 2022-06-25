@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { User } from 'src/user/user.entity';
-import { CreateHomeDto, HomeResponseDto } from './dtos/home.dto';
+import { CreateHomeDto, HomeResponseDto, UpdateHomeDto } from './dtos/home.dto';
 import { PropertyType } from './home.entity';
 import { HomeService } from './home.service';
 
@@ -44,8 +44,8 @@ export class HomeController {
   }
 
   @Put(':id')
-  async udpateHome() {
-    return {};
+  async udpateHome(@Body() body: UpdateHomeDto, @Param('id') id: number) {
+    return this.homeService.udpateHome(id, body);
   }
 
   @Delete(':id')

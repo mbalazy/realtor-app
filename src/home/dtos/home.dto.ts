@@ -1,6 +1,7 @@
 import { Exclude, Expose, Type } from 'class-transformer';
 import {
   IsArray,
+  IsOptional,
   IsDate,
   IsNotEmpty,
   IsNumber,
@@ -46,6 +47,50 @@ export class CreateHomeDto {
   images: ImageDto[];
 }
 
+export class UpdateHomeDto {
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  address?: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @IsOptional()
+  number_of_bedrooms?: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @IsOptional()
+  number_of_bathrooms?: number;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  city?: string;
+
+  @IsDate()
+  @IsNotEmpty()
+  @IsOptional()
+  listed_date?: Date;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @IsOptional()
+  price?: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @IsOptional()
+  land_size?: number;
+
+  @IsArray()
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => ImageDto)
+  images?: ImageDto[];
+}
+
+// todo move to iamge module
 export class ImageDto extends Image {
   id: number;
   home: Home;
