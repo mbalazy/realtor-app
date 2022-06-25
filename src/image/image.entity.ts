@@ -22,6 +22,6 @@ export class Image {
   @UpdateDateColumn({ type: 'timestamp' })
   updated_at: number;
 
-  @ManyToOne(() => Home, (home) => home.images)
+  @ManyToOne(() => Home, (home) => home.images, { onDelete: 'CASCADE' })
   home: Home;
 }

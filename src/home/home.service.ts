@@ -92,6 +92,14 @@ export class HomeService extends Exeptions {
       : this.throwHttpExeption('Can not update any home');
   }
 
+  async deleteHome(id: number) {
+    const deletedHome = await this.homeRepository.delete(id);
+
+    return deletedHome.affected === 1
+      ? 'done'
+      : this.throwHttpExeption(`Home with id: ${id} - not found`);
+  }
+
   filterByPrice({ minPrice, maxPrice }) {
     if (minPrice && !maxPrice) {
       return MoreThan(Number(minPrice));

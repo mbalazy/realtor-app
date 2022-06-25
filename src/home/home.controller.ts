@@ -49,7 +49,7 @@ export class HomeController {
   }
 
   @Delete(':id')
-  async deleteHome() {
-    return {};
+  async deleteHome(@Param('id') id: number) {
+    return this.homeService.deleteHome(id);
   }
 }
