@@ -8,6 +8,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { UserDecorator } from 'src/user/decorators/user.decorator';
 import { User } from 'src/user/user.entity';
 import { CreateHomeDto, HomeResponseDto, UpdateHomeDto } from './dtos/home.dto';
 import { PropertyType } from './home.entity';
@@ -38,9 +39,11 @@ export class HomeController {
   }
 
   @Post()
-  async createHome(@Body() body: CreateHomeDto): Promise<HomeResponseDto> {
-    const mockRealtor = new User();
-    return this.homeService.createHome(body, mockRealtor);
+  async createHome(
+    @Body() body: CreateHomeDto,
+    @UserDecorator() user: User,
+  ): Promise<HomeResponseDto> {
+    return this.homeService.createHome(body, user);
   }
 
   @Put(':id')

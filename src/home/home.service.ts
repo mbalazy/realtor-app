@@ -84,6 +84,7 @@ export class HomeService extends Exeptions {
     return new HomeResponseDto(newHome);
   }
 
+  // todo test this
   async udpateHome(id: number, home: UpdateHomeParams) {
     const updatedHome = await this.homeRepository.update({ id }, home);
 
@@ -92,6 +93,7 @@ export class HomeService extends Exeptions {
       : this.throwHttpExeption('Can not update any home');
   }
 
+  // todo test this
   async deleteHome(id: number) {
     const deletedHome = await this.homeRepository.delete(id);
 
